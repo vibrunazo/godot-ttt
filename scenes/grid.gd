@@ -55,6 +55,32 @@ func build_piece_at_tile(tile):
 	else: new_ball.setType('x')
 	tiles[tile.x][tile.y] = new_ball
 	if (tiles[2][1]): print(tiles[2][1].type)
+	check_win()
+
+func check_win():
+	for x in width:
+		for y in height:
+			if check_match_at(x, y): 
+				print('WIN for %s' % tiles[x][y].type)
+				return true
+	return false
+
+func check_match_at(x, y):
+	var size = 3
+	var combo = 0
+	for i in range(1, size):
+		if check_match_pair(x,y, x+i,y):
+			combo += 1
+	if combo >= size - 1: return true
+	return false
+	
+func check_match_pair(tile_a_x, tile_a_y, tile_b_x, tile_b_y):
+	if (tile_a_x >= width || tile_a_y >= height): return false
+	if (tile_b_x >= width || tile_b_y >= height): return false
+	var tile_a = tiles[tile_a_x][tile_a_y]
+	var tile_b = tiles[tile_b_x][tile_b_y]
+	if (tile_a == null || tile_b == null): return false
+	return tile_a.type == tile_b.type
 
 func pixel_to_grid(x, y):
 	x = (x - start_pos.x) / (tile_size.x + offset/2)
