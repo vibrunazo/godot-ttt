@@ -6,6 +6,8 @@ var tile_scene = preload("res://scenes/tile.tscn")
 export var width = 3
 export var height = 3
 export var offset = 20
+export var tile_size = Vector2(80, 80)
+export var start_pos = Vector2(100, 50)
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -14,7 +16,6 @@ export var offset = 20
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print('ready! grid!')
 	build_grid()
 
 
@@ -26,18 +27,32 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("ui_touch"):
-		print(event.as_text())
+#		print(event.as_text())
 		var new_ball = ball_scene.instance()
 		add_child(new_ball)
-		new_ball.position = event.position
+		var pos = snap_to_grid(event.position)
+		new_ball.position = pos
 		
 func build_grid():
 	print('building le grid')
 	for x in width:
 		for y in width:
-			build_tile_at(200 + x * (80 + offset/2), 100 + y * (80 + offset/2))
+			build_tile_at(grid_to_pixel(x, y))
 
-func build_tile_at(x, y):
+func build_tile_at(pos):
 	var new_tile = tile_scene.instance()
-	new_tile.position = Vector2(x, y)
+	new_tile.position = pos
 	add_child(new_tile)
+
+func pixel_to_grid(x, y):
+	x = (x - start_pos.x) / (tile_size.x + offset/2)
+	y = (y - start_pos.y) / (tile_size.y + offset/2)
+	return Vector2(round(x), round(y))
+
+func grid_to_pixel(x, y):
+	return Vector2(start_pos.x + x * (tile_size.x + offset/2), start_pos.y + y * (tile_size.y + offset/2))
+
+func snap_to_grid(pos):
+	var tile = pixel_to_grid(pos.x, pos.y)
+	var pos_in_grid = grid_to_pixel(tile.x, tile.y)
+	return pos_in_grid
