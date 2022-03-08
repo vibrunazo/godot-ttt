@@ -7,7 +7,7 @@ export var width = 3
 export var height = 3
 export var offset = 20
 export var tile_size = Vector2(80, 80)
-export var start_pos = Vector2(100, 50)
+export var start_pos = Vector2(200, 100)
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -28,15 +28,17 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("ui_touch"):
 #		print(event.as_text())
+		var tile = pixel_to_grid(event.position.x, event.position.y)
+		if (!is_tile_in_grid(tile)): return
 		var new_ball = ball_scene.instance()
 		add_child(new_ball)
-		var pos = snap_to_grid(event.position)
+		var pos = grid_to_pixel(tile.x, tile.y)
 		new_ball.position = pos
 		
 func build_grid():
 	print('building le grid')
 	for x in width:
-		for y in width:
+		for y in height:
 			build_tile_at(grid_to_pixel(x, y))
 
 func build_tile_at(pos):
@@ -56,3 +58,8 @@ func snap_to_grid(pos):
 	var tile = pixel_to_grid(pos.x, pos.y)
 	var pos_in_grid = grid_to_pixel(tile.x, tile.y)
 	return pos_in_grid
+
+func is_tile_in_grid(pos):
+	if (pos.x < 0 || pos.y < 0): return false
+	if (pos.x >= width || pos.y >= height): return false
+	return true
