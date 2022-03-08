@@ -2,7 +2,7 @@ extends Node2D
 
 var state = 'play'
 var turn = 0
-var ball_scene = preload("res://scenes/ball.tscn")
+var ball_scene = preload("res://scenes/piece.tscn")
 var tile_scene = preload("res://scenes/tile.tscn")
 export var width = 3
 export var height = 3
@@ -11,11 +11,6 @@ export var tile_size = Vector2(80, 80)
 export var start_pos = Vector2(200, 100)
 
 var tiles = []
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
