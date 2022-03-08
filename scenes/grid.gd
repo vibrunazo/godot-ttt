@@ -1,7 +1,7 @@
 extends Node2D
 
 var state = 'play'
-var ball_scene = preload("res://ball.tscn")
+var ball_scene = preload("res://scenes/ball.tscn")
 
 # Declare member variables here. Examples:
 # var a = 2
