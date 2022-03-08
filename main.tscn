@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ball.tscn" type="PackedScene" id=1]
+[ext_resource path="res://grid.tscn" type="PackedScene" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ball" parent="." instance=ExtResource( 1 )]
+position = Vector2( 311, 125 )
+
+[node name="ball2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 675, 220 )
+
+[node name="grid" parent="." instance=ExtResource( 2 )]
