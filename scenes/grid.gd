@@ -1,6 +1,7 @@
 extends Node2D
 
 var state = 'play'
+var turn = 0
 var ball_scene = preload("res://scenes/ball.tscn")
 var tile_scene = preload("res://scenes/tile.tscn")
 export var width = 3
@@ -8,6 +9,8 @@ export var height = 3
 export var offset = 20
 export var tile_size = Vector2(80, 80)
 export var start_pos = Vector2(200, 100)
+
+var tiles = []
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -30,21 +33,33 @@ func _input(event):
 #		print(event.as_text())
 		var tile = pixel_to_grid(event.position.x, event.position.y)
 		if (!is_tile_in_grid(tile)): return
-		var new_ball = ball_scene.instance()
-		add_child(new_ball)
-		var pos = grid_to_pixel(tile.x, tile.y)
-		new_ball.position = pos
+		if (tiles[tile.x][tile.y] != null): return
+		build_piece_at_tile(tile)
+		turn += 1
+		print(tiles)
 		
 func build_grid():
 	print('building le grid')
 	for x in width:
+		tiles.append([])
 		for y in height:
 			build_tile_at(grid_to_pixel(x, y))
+			tiles[x].append(null)
 
 func build_tile_at(pos):
 	var new_tile = tile_scene.instance()
 	new_tile.position = pos
 	add_child(new_tile)
+
+func build_piece_at_tile(tile):
+	var pos = grid_to_pixel(tile.x, tile.y)
+	var new_ball = ball_scene.instance()
+	add_child(new_ball)
+	new_ball.position = pos
+	if (turn %2 == 0): new_ball.setType('ball')
+	else: new_ball.setType('x')
+	tiles[tile.x][tile.y] = new_ball
+	if (tiles[2][1]): print(tiles[2][1].type)
 
 func pixel_to_grid(x, y):
 	x = (x - start_pos.x) / (tile_size.x + offset/2)
@@ -63,3 +78,9 @@ func is_tile_in_grid(pos):
 	if (pos.x < 0 || pos.y < 0): return false
 	if (pos.x >= width || pos.y >= height): return false
 	return true
+
+func grid_to_id(pos):
+	return pos.x + pos.y * width
+
+func id_to_grid(id):
+	return Vector2(0, 0)
