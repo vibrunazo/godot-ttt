@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Grid",
+"language": "GDScript",
+"path": "res://scenes/grid.gd"
+}, {
+"base": "Node2D",
+"class": "Piece",
+"language": "GDScript",
+"path": "res://scenes/piece.gd"
+} ]
+_global_script_class_icons={
+"Grid": "",
+"Piece": ""
+}
+
 [application]
 
 config/name="ttt"

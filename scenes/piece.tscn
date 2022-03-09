@@ -13,3 +13,5 @@ texture = ExtResource( 2 )
 [node name="TweenSize" type="Tween" parent="."]
 
 [node name="TweenColor" type="Tween" parent="."]
+
+[connection signal="tween_all_completed" from="TweenColor" to="." method="_on_TweenColor_tween_all_completed"]

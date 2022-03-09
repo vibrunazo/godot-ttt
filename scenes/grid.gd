@@ -1,14 +1,16 @@
 extends Node2D
 
-var state = 'play'
-var turn = 0
-var ball_scene = preload("res://scenes/piece.tscn")
-var tile_scene = preload("res://scenes/tile.tscn")
-export var width = 3
-export var height = 3	
-export var offset = 20
-export var tile_size = Vector2(80, 80)
-export var start_pos = Vector2(200, 100)
+class_name Grid
+
+var state := 'play'
+var turn := 0
+var ball_scene := preload("res://scenes/piece.tscn")
+var tile_scene := preload("res://scenes/tile.tscn")
+export var width := 3
+export var height := 3	
+export var offset := 20
+export var tile_size := Vector2(80, 80)
+export var start_pos := Vector2(200, 100)
 
 var tiles = []
 
@@ -50,8 +52,8 @@ func build_piece_at_tile(tile):
 	var new_ball = ball_scene.instance()
 	add_child(new_ball)
 	new_ball.position = pos
-	if (turn %2 == 0): new_ball.setType('ball')
-	else: new_ball.setType('x')
+	if (turn %2 == 0): new_ball.setup(self, tile, 'ball')
+	else: new_ball.setup(self, tile, 'x')
 	tiles[tile.x][tile.y] = new_ball
 	check_win()
 
@@ -61,6 +63,7 @@ func check_win():
 			if check_match_at(x, y): 
 				print('WIN for %s' % tiles[x][y].type)
 				state = 'pause'
+				$TimerPause.start(0.5)
 				return true
 	return false
 
@@ -112,3 +115,6 @@ func grid_to_id(pos):
 
 func id_to_grid(id):
 	return Vector2(0, 0)
+
+func _on_TimerPause_timeout():
+	state = 'play'
