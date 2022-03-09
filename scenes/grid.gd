@@ -24,7 +24,7 @@ func _ready():
 #	pass
 
 func _input(event):
-	if event.is_action_pressed("ui_touch"):
+	if event.is_action_pressed("ui_touch") && state == 'play':
 #		print(event.as_text())
 		var tile = pixel_to_grid(event.position.x, event.position.y)
 		if (!is_tile_in_grid(tile)): return
@@ -62,16 +62,23 @@ func check_win():
 		for y in height:
 			if check_match_at(x, y): 
 				print('WIN for %s' % tiles[x][y].type)
+				state = 'pause'
 				return true
 	return false
 
 func check_match_at(x, y):
 	var size = 3
-	var combo = 0
-	for i in range(1, size):
+	var combo_count = 0
+	var combo_tiles = [tiles[x][y]]
+	for i in range(1, size + 10):
 		if check_match_pair(x,y, x+i,y):
-			combo += 1
-	if combo >= size - 1: return true
+			combo_count += 1
+			combo_tiles.append(tiles[x+i][y])
+		else: break
+	if combo_count >= size - 1: 
+		for tile in combo_tiles:
+			tile.matched()
+		return true
 	return false
 	
 func check_match_pair(tile_a_x, tile_a_y, tile_b_x, tile_b_y):

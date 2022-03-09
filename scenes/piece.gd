@@ -25,3 +25,9 @@ func setType(new_type):
 		$Sprite.set_texture(tex_x)
 	if (type == 'ball'):
 		$Sprite.set_texture(tex_ball)
+		
+func matched():
+	$TweenSize.interpolate_property(self, "scale", Vector2(1, 1), Vector2(0, 0), 0.3, Tween.TRANS_BACK, Tween.EASE_IN)
+	$TweenSize.start()
+	$TweenColor.interpolate_property($Sprite, "modulate", Color(1, 1, 1, 1), Color(1, 1, 1, 0), 0.3, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$TweenColor.start()
