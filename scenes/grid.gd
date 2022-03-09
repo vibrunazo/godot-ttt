@@ -55,7 +55,8 @@ func build_piece_at_tile(tile):
 	if (turn %2 == 0): new_ball.setup(self, tile, 'ball')
 	else: new_ball.setup(self, tile, 'x')
 	tiles[tile.x][tile.y] = new_ball
-	check_win()
+	check_match_at(tile.x, tile.y)
+#	check_win()
 
 func check_win():
 	for x in width:
@@ -69,19 +70,37 @@ func check_win():
 
 func check_match_at(x, y):
 	var size = 3
-	var directions = [[1, 0], [0, 1], [1, 1], [1, -1]]
+#	var directions = [[1, 0], [0, 1], [1, 1], [1, -1]]
+	var directions = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+	var combo_count = 0
+	var combo_tiles = [tiles[x][y]]
 	for dir in directions:
-		var combo_count = 0
-		var combo_tiles = [tiles[x][y]]
 		for i in range(1, size + 10):
-			if check_match_pair(x,y, x+i*dir[0],y+i*dir[1]):
+			var x2 = x+i*dir[0]
+			var y2 = y+i*dir[1]
+			if check_match_pair(x,y, x2,y2):
 				combo_count += 1
-				combo_tiles.append(tiles[x+i*dir[0]][y+i*dir[1]])
+				combo_tiles.append(tiles[x2][y2])
+				if i == 1:
+					# if the first neighbor is a match, then checks for L matches
+					for dir2 in directions:
+						# search in all directions except the current direction (that's a straight line)
+						# and except going backwards
+						# (x y )
+						# (x2y2) (x3y3) <- L match
+						if dir == dir2: continue
+						if dir[0] == -dir2[0] && dir[1] == -dir2[1]: continue
+						var x3 = x2 + dir2[0]
+						var y3 = y2 + dir2[1]
+						if check_match_pair(x2, y2, x3, y3):
+							combo_count += 1
+							combo_tiles.append(tiles[x3][y3])
+						pass
 			else: break
-		if combo_count >= size - 1: 
-			for tile in combo_tiles:
-				tile.matched()
-			return true
+	if combo_count >= size - 1: 
+		for tile in combo_tiles:
+			tile.matched()
+		return true
 	return false
 	
 func check_match_pair(tile_a_x, tile_a_y, tile_b_x, tile_b_y):
@@ -91,6 +110,9 @@ func check_match_pair(tile_a_x, tile_a_y, tile_b_x, tile_b_y):
 	var tile_b = tiles[tile_b_x][tile_b_y]
 	if (tile_a == null || tile_b == null): return false
 	return tile_a.type == tile_b.type
+
+func check_match_at_dir(tile_x, tile_y, dir):
+	return check_match_pair(tile_x, tile_y, tile_x + dir[0], tile_y + dir[1])
 
 func pixel_to_grid(x, y):
 	x = (x - start_pos.x) / (tile_size.x + offset/2)
