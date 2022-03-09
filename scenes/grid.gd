@@ -5,7 +5,7 @@ var turn = 0
 var ball_scene = preload("res://scenes/piece.tscn")
 var tile_scene = preload("res://scenes/tile.tscn")
 export var width = 3
-export var height = 3
+export var height = 3	
 export var offset = 20
 export var tile_size = Vector2(80, 80)
 export var start_pos = Vector2(200, 100)
@@ -31,10 +31,9 @@ func _input(event):
 		if (tiles[tile.x][tile.y] != null): return
 		build_piece_at_tile(tile)
 		turn += 1
-		print(tiles)
+#		print(tiles)
 		
 func build_grid():
-	print('building le grid')
 	for x in width:
 		tiles.append([])
 		for y in height:
@@ -54,7 +53,6 @@ func build_piece_at_tile(tile):
 	if (turn %2 == 0): new_ball.setType('ball')
 	else: new_ball.setType('x')
 	tiles[tile.x][tile.y] = new_ball
-	if (tiles[2][1]): print(tiles[2][1].type)
 	check_win()
 
 func check_win():
@@ -68,17 +66,19 @@ func check_win():
 
 func check_match_at(x, y):
 	var size = 3
-	var combo_count = 0
-	var combo_tiles = [tiles[x][y]]
-	for i in range(1, size + 10):
-		if check_match_pair(x,y, x+i,y):
-			combo_count += 1
-			combo_tiles.append(tiles[x+i][y])
-		else: break
-	if combo_count >= size - 1: 
-		for tile in combo_tiles:
-			tile.matched()
-		return true
+	var directions = [[1, 0], [0, 1], [1, 1], [1, -1]]
+	for dir in directions:
+		var combo_count = 0
+		var combo_tiles = [tiles[x][y]]
+		for i in range(1, size + 10):
+			if check_match_pair(x,y, x+i*dir[0],y+i*dir[1]):
+				combo_count += 1
+				combo_tiles.append(tiles[x+i*dir[0]][y+i*dir[1]])
+			else: break
+		if combo_count >= size - 1: 
+			for tile in combo_tiles:
+				tile.matched()
+			return true
 	return false
 	
 func check_match_pair(tile_a_x, tile_a_y, tile_b_x, tile_b_y):

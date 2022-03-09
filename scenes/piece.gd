@@ -12,7 +12,7 @@ var tex_x = preload("res://assets/x01.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	play_intro()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,3 +31,7 @@ func matched():
 	$TweenSize.start()
 	$TweenColor.interpolate_property($Sprite, "modulate", Color(1, 1, 1, 1), Color(1, 1, 1, 0), 0.3, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$TweenColor.start()
+
+func play_intro():
+	$TweenSize.interpolate_property(self, "scale", Vector2(0, 0), Vector2(1, 1), 0.3, Tween.TRANS_BACK, Tween.EASE_OUT)
+	$TweenSize.start()
