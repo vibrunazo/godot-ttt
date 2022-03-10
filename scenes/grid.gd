@@ -4,7 +4,7 @@ class_name Grid
 
 var state := 'play'
 var turn := 0
-var ball_scene := preload("res://scenes/piece.tscn")
+var piece_scene := preload("res://scenes/piece.tscn")
 var tile_scene := preload("res://scenes/tile.tscn")
 export var width := 3
 export var height := 3	
@@ -31,7 +31,7 @@ func _input(event):
 		var tile = pixel_to_grid(event.position.x, event.position.y)
 		if (!is_tile_in_grid(tile)): return
 		if (tiles[tile.x][tile.y] != null): return
-		build_piece_at_tile(tile)
+		play_piece_at_tile(tile)
 		turn += 1
 #		print(tiles)
 		
@@ -47,16 +47,18 @@ func build_tile_at(pos):
 	new_tile.position = pos
 	add_child(new_tile)
 
-func build_piece_at_tile(tile):
+func build_piece_at_tile(tile: Vector2, type: String):
 	var pos = grid_to_pixel(tile.x, tile.y)
-	var new_ball = ball_scene.instance()
-	add_child(new_ball)
-	new_ball.position = pos
-	if (turn %2 == 0): new_ball.setup(self, tile, 'ball')
-	else: new_ball.setup(self, tile, 'x')
-	tiles[tile.x][tile.y] = new_ball
+	var new_piece = piece_scene.instance()
+	add_child(new_piece)
+	new_piece.position = pos
+	new_piece.setup(self, tile, type)
+	tiles[tile.x][tile.y] = new_piece
 	check_match_at(tile.x, tile.y)
-#	check_win()
+
+func play_piece_at_tile(tile: Vector2):
+	if (turn %2 == 0): build_piece_at_tile(tile, 'ball')
+	else: build_piece_at_tile(tile, 'x')
 
 func check_win():
 	for x in width:
@@ -72,7 +74,7 @@ func check_match_at(x, y):
 	var size = 3
 #	var directions = [[1, 0], [0, 1], [1, 1], [1, -1]]
 	var directions = [[1, 0], [0, 1], [-1, 0], [0, -1]]
-	var combo_count = 0
+	var combo_count = 1
 	var combo_tiles = [tiles[x][y]]
 	for dir in directions:
 		for i in range(1, size + 10):
@@ -97,9 +99,11 @@ func check_match_at(x, y):
 							combo_tiles.append(tiles[x3][y3])
 						pass
 			else: break
-	if combo_count >= size - 1: 
+	if combo_count >= size: 
+		print('combo', tiles[x][y].type, combo_count)
 		for tile in combo_tiles:
 			tile.matched()
+		build_piece_at_tile(Vector2(x, y), 'ball')
 		return true
 	return false
 	
