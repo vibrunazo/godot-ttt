@@ -47,12 +47,12 @@ func build_tile_at(pos):
 	new_tile.position = pos
 	add_child(new_tile)
 
-func build_piece_at_tile(tile: Vector2, type: String):
+func build_piece_at_tile(tile: Vector2, type: String, level: int = 1):
 	var pos = grid_to_pixel(tile.x, tile.y)
-	var new_piece = piece_scene.instance()
+	var new_piece: Piece = piece_scene.instance()
 	add_child(new_piece)
 	new_piece.position = pos
-	new_piece.setup(self, tile, type)
+	new_piece.setup(self, tile, type, level)
 	tiles[tile.x][tile.y] = new_piece
 	check_match_at(tile.x, tile.y)
 
@@ -71,11 +71,12 @@ func check_win():
 	return false
 
 func check_match_at(x, y):
+	var first: Piece = tiles[x][y]
 	var size = 3
 #	var directions = [[1, 0], [0, 1], [1, 1], [1, -1]]
 	var directions = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 	var combo_count = 1
-	var combo_tiles = [tiles[x][y]]
+	var combo_tiles = [first]
 	for dir in directions:
 		for i in range(1, size + 10):
 			var x2 = x+i*dir[0]
@@ -103,17 +104,17 @@ func check_match_at(x, y):
 		print('combo', tiles[x][y].type, combo_count)
 		for tile in combo_tiles:
 			tile.matched()
-		build_piece_at_tile(Vector2(x, y), 'ball')
+		build_piece_at_tile(Vector2(x, y), first.type, first.level + 1)
 		return true
 	return false
 	
 func check_match_pair(tile_a_x, tile_a_y, tile_b_x, tile_b_y):
 	if (tile_a_x >= width || tile_a_y >= height): return false
 	if (tile_b_x >= width || tile_b_y >= height): return false
-	var tile_a = tiles[tile_a_x][tile_a_y]
-	var tile_b = tiles[tile_b_x][tile_b_y]
+	var tile_a: Piece = tiles[tile_a_x][tile_a_y]
+	var tile_b: Piece = tiles[tile_b_x][tile_b_y]
 	if (tile_a == null || tile_b == null): return false
-	return tile_a.type == tile_b.type
+	return tile_a.type == tile_b.type && tile_a.level == tile_b.level
 
 func check_match_at_dir(tile_x, tile_y, dir):
 	return check_match_pair(tile_x, tile_y, tile_x + dir[0], tile_y + dir[1])

@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/piece.gd" type="Script" id=1]
 [ext_resource path="res://assets/x01.png" type="Texture" id=2]
+
+[sub_resource type="Theme" id=1]
 
 [node name="ball" type="Node2D"]
 script = ExtResource( 1 )
@@ -13,5 +15,12 @@ texture = ExtResource( 2 )
 [node name="TweenSize" type="Tween" parent="."]
 
 [node name="TweenColor" type="Tween" parent="."]
+
+[node name="TextLevel" type="Label" parent="."]
+margin_right = 58.0
+margin_bottom = 34.0
+rect_scale = Vector2( 2, 2 )
+theme = SubResource( 1 )
+text = "1	"
 
 [connection signal="tween_all_completed" from="TweenColor" to="." method="_on_TweenColor_tween_all_completed"]
