@@ -6,7 +6,7 @@ var type := 'moo'
 var level := 1
 var grid = null
 var tile := Vector2(0, 0)
-var tex_ball := preload("res://assets/ball02.png")
+var tex_ball := preload("res://assets/seed03.png")
 var tex_x := preload("res://assets/x01.png")
 
 
