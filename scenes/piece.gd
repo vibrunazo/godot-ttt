@@ -7,7 +7,7 @@ var level := 1
 var grid = null
 var tile := Vector2(0, 0)
 var tex_ball := preload("res://assets/seed03.png")
-var tex_x := preload("res://assets/x01.png")
+var tex_x := preload("res://assets/leaf02.png")
 
 
 # Declare member variables here. Examples:
