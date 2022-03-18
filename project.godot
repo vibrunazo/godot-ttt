@@ -30,6 +30,10 @@ config/name="ttt"
 run/main_scene="res://scenes/main.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/dpi/allow_hidpi=true
+
 [input]
 
 ui_touch={
