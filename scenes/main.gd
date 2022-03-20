@@ -16,6 +16,7 @@ func _ready():
 #	pass
 
 
-func _on_grid_played_turn(grid_ref):
+func _on_grid_played_turn(grid_ref: Grid):
 	var next = grid_ref.next
-	$UI/next.set_next(next)
+	var tex = grid_ref.get_tex_from_type(next)
+	$UI/next.set_next(tex)

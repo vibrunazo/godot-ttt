@@ -29,17 +29,17 @@ func setup(grid_ref, new_tile, new_type, new_level := 1):
 	set_type(new_type)
 	set_level(new_level)
 	
-static func get_tex_from_type(new_type: String):
-	var tex_ball := preload("res://assets/seed03.png")
-	var tex_x := preload("res://assets/leaf02.png")
-	if (new_type == 'x'):
-		return tex_x
-	if (new_type == 'ball'):
-		return tex_ball
+#static func get_tex_from_type(new_type: String):
+#	var tex_ball := grid.tex_ball
+#	var tex_x := preload("res://assets/leaf02.png")
+#	if (new_type == 'x'):
+#		return tex_x
+#	if (new_type == 'ball'):
+#		return tex_ball
 
 func set_type(new_type):
 	type = new_type
-	tex = get_tex_from_type(new_type)
+	tex = grid.get_tex_from_type(new_type)
 	$Sprite.set_texture(tex)
 
 func set_level(new_level):

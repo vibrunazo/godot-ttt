@@ -17,6 +17,6 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func set_next(next: String):
-	print('setting texture on next: %s' % next)
-	$Tex.texture = Piece.get_tex_from_type(next)
+func set_next(tex):
+	print('setting texture on next: %s' % tex)
+	$Tex.texture = tex

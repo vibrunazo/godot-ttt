@@ -9,6 +9,8 @@ var turn := 0
 var next := 'ball'
 var piece_scene := preload("res://scenes/piece.tscn")
 var tile_scene := preload("res://scenes/tile.tscn")
+var tex_ball := preload("res://assets/seed03.png")
+var tex_x := preload("res://assets/leaf02.png")
 export var width := 3
 export var height := 3	
 export var offset := 20
@@ -150,6 +152,12 @@ func grid_to_id(pos):
 
 func id_to_grid(id):
 	return Vector2(0, 0)
+	
+func get_tex_from_type(new_type: String):
+	if (new_type == 'x'):
+		return tex_x
+	if (new_type == 'ball'):
+		return tex_ball
 
 func _on_TimerPause_timeout():
 	state = 'play'
