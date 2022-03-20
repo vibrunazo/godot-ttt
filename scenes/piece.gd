@@ -6,8 +6,7 @@ var type := 'moo'
 var level := 1
 var grid = null
 var tile := Vector2(0, 0)
-var tex_ball := preload("res://assets/seed03.png")
-var tex_x := preload("res://assets/leaf02.png")
+var tex
 
 
 # Declare member variables here. Examples:
@@ -29,13 +28,19 @@ func setup(grid_ref, new_tile, new_type, new_level := 1):
 	tile = new_tile
 	set_type(new_type)
 	set_level(new_level)
+	
+static func get_tex_from_type(new_type: String):
+	var tex_ball := preload("res://assets/seed03.png")
+	var tex_x := preload("res://assets/leaf02.png")
+	if (new_type == 'x'):
+		return tex_x
+	if (new_type == 'ball'):
+		return tex_ball
 
 func set_type(new_type):
 	type = new_type
-	if (type == 'x'):
-		$Sprite.set_texture(tex_x)
-	if (type == 'ball'):
-		$Sprite.set_texture(tex_ball)
+	tex = get_tex_from_type(new_type)
+	$Sprite.set_texture(tex)
 
 func set_level(new_level):
 	level = new_level

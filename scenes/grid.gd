@@ -2,8 +2,11 @@ extends Node2D
 
 class_name Grid
 
+signal played_turn(grid_ref)
+
 var state := 'play'
 var turn := 0
+var next := 'ball'
 var piece_scene := preload("res://scenes/piece.tscn")
 var tile_scene := preload("res://scenes/tile.tscn")
 export var width := 3
@@ -32,7 +35,7 @@ func _input(event):
 		if (!is_tile_in_grid(tile)): return
 		if (tiles[tile.x][tile.y] != null): return
 		play_piece_at_tile(tile)
-		turn += 1
+		emit_signal("played_turn", self)
 #		print(tiles)
 		
 func build_grid():
@@ -57,8 +60,13 @@ func build_piece_at_tile(tile: Vector2, type: String, level: int = 1):
 	check_match_at(tile.x, tile.y)
 
 func play_piece_at_tile(tile: Vector2):
-	if (turn %2 == 0): build_piece_at_tile(tile, 'ball')
-	else: build_piece_at_tile(tile, 'x')
+	build_piece_at_tile(tile, next)
+	turn += 1
+	update_next()
+
+func update_next():
+	if (turn %2 == 0): next = 'ball'
+	else: next = 'x'
 
 func check_win():
 	for x in width:
