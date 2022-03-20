@@ -34,6 +34,10 @@ config/icon="res://icon.png"
 
 window/dpi/allow_hidpi=true
 
+[global]
+
+android=false
+
 [input]
 
 ui_touch={
