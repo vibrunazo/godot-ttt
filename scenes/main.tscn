@@ -13,9 +13,26 @@ anchor_bottom = 1.0
 color = Color( 0.333333, 0.3, 0.4, 1 )
 
 [node name="next" parent="." instance=ExtResource( 1 )]
+anchor_top = 0.0
+anchor_bottom = 0.0
+margin_left = -155.0
+margin_top = 134.0
+margin_right = -27.0
+margin_bottom = 262.0
 
-[node name="grid" parent="." instance=ExtResource( 2 )]
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -400.0
+margin_top = -800.0
+margin_right = 400.0
+
+[node name="grid" parent="Control" instance=ExtResource( 2 )]
 width = 7
 height = 7
 tile_size = Vector2( 100, 100 )
-start_pos = Vector2( 75, 100 )
+start_pos = Vector2( 70, 60 )
+
+[connection signal="played_turn" from="Control/grid" to="." method="_on_grid_played_turn"]

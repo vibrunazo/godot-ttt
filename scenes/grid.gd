@@ -32,8 +32,8 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("ui_touch") && state == 'play':
-#		print(event.as_text())
-		var tile = pixel_to_grid(event.position.x, event.position.y)
+		print(event.as_text())
+		var tile = pixel_to_grid(event.position.x - global_position.x, event.position.y - global_position.y)
 		if (!is_tile_in_grid(tile)): return
 		if (tiles[tile.x][tile.y] != null): return
 		play_piece_at_tile(tile)
