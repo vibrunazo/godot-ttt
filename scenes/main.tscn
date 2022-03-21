@@ -11,7 +11,7 @@ script = ExtResource( 3 )
 width = 7
 height = 7
 tile_size = Vector2( 100, 100 )
-start_pos = Vector2( 200, 60 )
+start_pos = Vector2( 100, 100 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
