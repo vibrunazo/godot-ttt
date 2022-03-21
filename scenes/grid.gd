@@ -51,7 +51,7 @@ func build_tile_at(pos):
 	var new_tile = tile_scene.instance()
 	new_tile.position = pos
 	add_child(new_tile)
-	print('added tile at %s' % pos)
+#	print('added tile at %s' % pos)
 
 func build_piece_at_tile(tile: Vector2, type: String, level: int = 1):
 	var pos = grid_to_pixel(tile.x, tile.y)
