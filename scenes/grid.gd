@@ -6,11 +6,13 @@ signal played_turn(grid_ref)
 
 var state := 'play'
 var turn := 0
-var next := 'ball'
+var next := 'rock'
 var piece_scene := preload("res://scenes/piece.tscn")
 var tile_scene := preload("res://scenes/tile.tscn")
-var tex_ball := preload("res://assets/rock01.png")
-var tex_x := preload("res://assets/steel02.png")
+var tex_dic := {
+	'life': [preload("res://assets/seed03.png"), preload("res://assets/leaf02.png")],
+	'rock': [preload("res://assets/rock01.png"), preload("res://assets/steel02.png")]
+}
 export var width := 3
 export var height := 3	
 export var offset := 20
@@ -53,7 +55,7 @@ func build_tile_at(pos):
 	add_child(new_tile)
 #	print('added tile at %s' % pos)
 
-func build_piece_at_tile(tile: Vector2, type: String, level: int = 1):
+func build_piece_at_tile(tile: Vector2, type: String, level: int = 0):
 	var pos = grid_to_pixel(tile.x, tile.y)
 	var new_piece: Piece = piece_scene.instance()
 	add_child(new_piece)
@@ -68,8 +70,8 @@ func play_piece_at_tile(tile: Vector2):
 	update_next()
 
 func update_next():
-	if (turn %2 == 0): next = 'ball'
-	else: next = 'x'
+	if (turn %2 == 0): next = 'life'
+	else: next = 'rock'
 
 func check_win():
 	for x in width:
@@ -154,11 +156,10 @@ func grid_to_id(pos):
 func id_to_grid(id):
 	return Vector2(0, 0)
 	
-func get_tex_from_type(new_type: String):
-	if (new_type == 'x'):
-		return tex_x
-	if (new_type == 'ball'):
-		return tex_ball
+func get_tex_from_type(new_type: String, level: int = 0):
+	if (level >= tex_dic[new_type].size()):
+		level = tex_dic[new_type].size() - 1
+	return tex_dic[new_type][level]
 
 func _on_TimerPause_timeout():
 	state = 'play'

@@ -3,7 +3,7 @@ extends Node2D
 class_name Piece
 
 var type := 'moo'
-var level := 1
+var level := 0
 var grid = null
 var tile := Vector2(0, 0)
 var tex
@@ -23,11 +23,11 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func setup(grid_ref, new_tile, new_type, new_level := 1):
+func setup(grid_ref, new_tile, new_type, new_level := 0):
 	grid = grid_ref
 	tile = new_tile
-	set_type(new_type)
 	set_level(new_level)
+	set_type(new_type)
 	
 #static func get_tex_from_type(new_type: String):
 #	var tex_ball := grid.tex_ball
@@ -39,7 +39,7 @@ func setup(grid_ref, new_tile, new_type, new_level := 1):
 
 func set_type(new_type):
 	type = new_type
-	tex = grid.get_tex_from_type(new_type)
+	tex = grid.get_tex_from_type(new_type, level)
 	$Sprite.set_texture(tex)
 
 func set_level(new_level):
