@@ -44,7 +44,9 @@ func set_type(new_type):
 
 func set_level(new_level):
 	level = new_level
-	$TextLevel.text = "%d" % level
+	if (level > 1):
+		$TextLevel.visible = true
+		$TextLevel.text = "%d" % level
 		
 func matched():
 	grid.tiles[tile.x][tile.y] = null
