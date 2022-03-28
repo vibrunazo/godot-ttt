@@ -28,15 +28,8 @@ func setup(grid_ref, new_tile, new_type, new_level := 0):
 	tile = new_tile
 	set_level(new_level)
 	set_type(new_type)
+	set_text()
 	
-#static func get_tex_from_type(new_type: String):
-#	var tex_ball := grid.tex_ball
-#	var tex_x := preload("res://assets/leaf02.png")
-#	if (new_type == 'x'):
-#		return tex_x
-#	if (new_type == 'ball'):
-#		return tex_ball
-
 func set_type(new_type):
 	type = new_type
 	tex = grid.get_tex_from_type(new_type, level)
@@ -44,7 +37,10 @@ func set_type(new_type):
 
 func set_level(new_level):
 	level = new_level
-	if (level > 1):
+
+func set_text():
+	var textures = grid.tex_dic[type]
+	if (level >= textures.size()):
 		$TextLevel.visible = true
 		$TextLevel.text = "%d" % level
 		
