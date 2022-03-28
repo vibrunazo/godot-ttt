@@ -11,7 +11,7 @@ var piece_scene := preload("res://scenes/piece.tscn")
 var tile_scene := preload("res://scenes/tile.tscn")
 var tex_dic := {
 	'life': [preload("res://assets/seed03.png"), preload("res://assets/leaf02.png"), preload("res://assets/tree.png")],
-	'rock': [preload("res://assets/rock01.png"), preload("res://assets/steel02.png")]
+	'rock': [preload("res://assets/fire.png"), preload("res://assets/steel02.png")]
 }
 export var width := 3
 export var height := 3	
