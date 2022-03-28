@@ -11,7 +11,8 @@ var piece_scene := preload("res://scenes/piece.tscn")
 var tile_scene := preload("res://scenes/tile.tscn")
 var tex_dic := {
 	'life': [preload("res://assets/seed03.png"), preload("res://assets/leaf02.png"), preload("res://assets/tree.png")],
-	'rock': [preload("res://assets/fire.png"), preload("res://assets/steel02.png")]
+	'rock': [preload("res://assets/rock01.png"), preload("res://assets/steel02.png")],
+	'fire': [preload("res://assets/fire.png")]
 }
 export var width := 3
 export var height := 3	
@@ -24,6 +25,7 @@ var tiles = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	build_grid()
+	update_next()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -70,8 +72,12 @@ func play_piece_at_tile(tile: Vector2):
 	update_next()
 
 func update_next():
-	if (turn %2 == 0): next = 'life'
-	else: next = 'rock'
+	var keys := tex_dic.keys()
+	var size := keys.size()
+	var next_index := turn % size
+	next = keys[next_index]
+#	if (turn %2 == 0): next = 'life'
+#	else: next = 'rock'
 
 func check_win():
 	for x in width:
