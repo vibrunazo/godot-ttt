@@ -5,13 +5,15 @@
 
 [sub_resource type="Theme" id=1]
 
-[node name="ball" type="Node2D"]
+[node name="piece" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 
 [node name="TweenSize" type="Tween" parent="."]
+
+[node name="TweenPos" type="Tween" parent="."]
 
 [node name="TweenColor" type="Tween" parent="."]
 

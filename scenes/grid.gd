@@ -42,8 +42,7 @@ func _input(event):
 		if (tiles[tile.x][tile.y] != null): return
 		play_piece_at_tile(tile)
 		emit_signal("played_turn", self)
-#		print(tiles)
-		
+
 func build_grid():
 	for x in width:
 		tiles.append([])
@@ -74,10 +73,35 @@ func play_piece_at_tile(tile: Vector2):
 func update_next():
 	var keys := tex_dic.keys()
 	var size := keys.size()
-	var next_index := turn % size
+#	var next_index := turn % size
+	var rng := randi() % 100
+	var next_index := 2
+	if (rng < 92): next_index = 1
+	if (rng < 60): next_index = 0
 	next = keys[next_index]
 #	if (turn %2 == 0): next = 'life'
 #	else: next = 'rock'
+
+func move_piece(from: Vector2, to: Vector2):
+	var to_tile: Piece = tiles[to.x][to.y]
+	if (to_tile != null): return false
+	var from_tile: Piece = tiles[from.x][from.y]
+	tiles[to.x][to.y] = from_tile
+	tiles[from.x][from.y] = null
+	return true
+
+func find_free_neighbors(from):
+	var x: int = from.x
+	var y: int = from.y
+	var directions := [[1, 0], [0, 1], [-1, 0], [0, -1]]
+	var found_tiles: Array  = []
+	for dir in directions:
+		var x2: int = x + dir[0]
+		var y2: int = y + dir[1]
+		if (is_inside_grid(x2, y2) && tiles[x2][y2] == null):
+			found_tiles.append([x2, y2])
+	return found_tiles
+	
 
 func check_win():
 	for x in width:
@@ -91,9 +115,10 @@ func check_win():
 
 func check_match_at(x, y):
 	var first: Piece = tiles[x][y]
+	if (!first.can_match): return
 	var size = 3
 #	var directions = [[1, 0], [0, 1], [1, 1], [1, -1]]
-	var directions = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+	var directions := [[1, 0], [0, 1], [-1, 0], [0, -1]]
 	var combo_count = 1
 	var combo_tiles = [first]
 	for dir in directions:
@@ -137,6 +162,11 @@ func check_match_pair(tile_a_x, tile_a_y, tile_b_x, tile_b_y):
 
 func check_match_at_dir(tile_x, tile_y, dir):
 	return check_match_pair(tile_x, tile_y, tile_x + dir[0], tile_y + dir[1])
+
+func is_inside_grid(x, y):
+	if (x >= width || y >= height): return false
+	if (x < 0 || y < 0): return false
+	return true
 
 func pixel_to_grid(x, y):
 	x = (x - start_pos.x) / (tile_size.x + offset/2)
