@@ -77,7 +77,12 @@ func _on_turn_over(grid_ref):
 func move_to_random_neighbor():
 	print("I'm on fire at %s" % tile)
 	var neighbors: Array = grid.find_free_neighbors(tile)
-	if (neighbors.size() == 0): return
+	if (neighbors.size() == 0): 
+		# if there are no free neighbors, it means I'm stuck
+		can_match = true
+		matched()
+		grid.build_piece_at_tile(tile, type, level + 1)
+		return
 	var rng = randi() % neighbors.size()
 	var to := Vector2(neighbors[rng][0], neighbors[rng][1])
 	var move_ok = grid.move_piece(tile, to)
