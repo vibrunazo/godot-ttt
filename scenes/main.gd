@@ -25,4 +25,5 @@ func _on_grid_played_turn(grid_ref: Grid):
 
 func _on_RestartButton_pressed():
 	print('restart')
+	get_tree().reload_current_scene()
 	pass # Replace with function body.
