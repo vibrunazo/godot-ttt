@@ -21,3 +21,8 @@ func _on_grid_played_turn(grid_ref: Grid):
 	var tex = grid_ref.get_tex_from_type(next)
 	$next.set_next(tex)
 	
+
+
+func _on_RestartButton_pressed():
+	print('restart')
+	pass # Replace with function body.
