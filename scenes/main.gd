@@ -24,29 +24,26 @@ func load_game():
 	if not save_file.file_exists("user://game.save"):
 		print('no save file')
 		return null
-	print('found save file')
 	save_file.open("user://game.save", File.READ)
-	print("pos:  %s" % save_file.get_position())
-	print("len:  %s" % save_file.get_len())
-	print("line: %s" % save_file.get_line())
+	var version = save_file.get_line()
 	var grid_data = save_file.get_line()
-	print("grid: %s" % grid_data)
-	print("pos:  %s" % save_file.get_position())
-	print("len:  %s" % save_file.get_len())
 	save_file.close()
 	return parse_json(grid_data)
 
 func save_game():
-	print("saving game")
 	var save_file := File.new()
 	save_file.open("user://game.save", File.WRITE)
 	
 	var json = get_JSON_from_grid()
-	save_file.store_line("moo moo")
+	save_file.store_line('1')
 	save_file.store_line(json)
 	
 	save_file.close()
-	print("saved file")
+
+func reset_game():
+	var save_file := File.new()
+	save_file.open("user://game.save", File.WRITE)
+	save_file.close()
 
 func get_JSON_from_grid():
 	var tiles = $Control/grid.tiles
@@ -74,5 +71,5 @@ func _on_grid_played_turn(grid_ref: Grid):
 
 func _on_RestartButton_pressed():
 	print('restart')
+	reset_game()
 	get_tree().reload_current_scene()
-	pass # Replace with function body.
