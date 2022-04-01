@@ -24,9 +24,9 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func setup(grid_ref, new_tile, new_type, new_level := 0):
+func setup(grid_ref, tile_pos, new_type, new_level := 0):
 	grid = grid_ref
-	tile = new_tile
+	tile = tile_pos
 	set_level(new_level)
 	set_type(new_type)
 	set_text()
@@ -75,7 +75,7 @@ func _on_turn_over(grid_ref):
 		move_to_random_neighbor()
 
 func move_to_random_neighbor():
-	print("I'm on fire at %s" % tile)
+#	print("I'm on fire at %s" % tile)
 	var neighbors: Array = grid.find_free_neighbors(tile)
 	if (neighbors.size() == 0): 
 		# if there are no free neighbors, it means I'm stuck
@@ -93,3 +93,5 @@ func move_to_random_neighbor():
 	$TweenPos.interpolate_property(self, "position", position, to_pos, 0.3, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$TweenPos.start()
 	
+func get_json():
+	return [type, level]

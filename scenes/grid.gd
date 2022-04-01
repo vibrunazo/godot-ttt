@@ -36,7 +36,7 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("ui_touch") && state == 'play':
-		print(event.as_text())
+#		print(event.as_text())
 		var tile = pixel_to_grid(event.position.x - global_position.x, event.position.y - global_position.y)
 		if (!is_tile_in_grid(tile)): return
 		if (tiles[tile.x][tile.y] != null): return
@@ -107,7 +107,7 @@ func check_win():
 	for x in width:
 		for y in height:
 			if check_match_at(x, y): 
-				print('WIN for %s' % tiles[x][y].type)
+#				print('WIN for %s' % tiles[x][y].type)
 				state = 'pause'
 				$TimerPause.start(0.5)
 				return true
@@ -145,7 +145,7 @@ func check_match_at(x, y):
 						pass
 			else: break
 	if combo_count >= size: 
-		print('combo', tiles[x][y].type, combo_count)
+#		print('combo', tiles[x][y].type, combo_count)
 		for tile in combo_tiles:
 			tile.matched()
 		build_piece_at_tile(Vector2(x, y), first.type, first.level + 1)
