@@ -24,7 +24,17 @@ var tiles = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	build_grid()
+	pass
+
+# called from main.gd with load data
+func start(data = null):
+	if data == null:
+		build_grid()
+	else:
+		build_grid()
+		build_grid_from(data)
+		print("data0:")
+		print(data[0])
 	update_next()
 
 
@@ -43,6 +53,20 @@ func _input(event):
 		play_piece_at_tile(tile)
 		emit_signal("played_turn", self)
 
+func build_grid_from(data):
+	var i = 0
+	for x in width:
+#		tiles.append([])
+		for y in height:
+#			build_tile_at(grid_to_pixel(x, y))
+			var piece = data[i]
+#			tiles[x].append(null)
+			if data[i] == []:
+				pass
+			else:
+				build_piece_at_tile(Vector2(x, y), data[i][0], data[i][1], false)
+			i += 1
+
 func build_grid():
 	for x in width:
 		tiles.append([])
@@ -56,14 +80,15 @@ func build_tile_at(pos):
 	add_child(new_tile)
 #	print('added tile at %s' % pos)
 
-func build_piece_at_tile(tile: Vector2, type: String, level: int = 0):
+func build_piece_at_tile(tile: Vector2, type: String, level: int = 0, check = true):
 	var pos = grid_to_pixel(tile.x, tile.y)
 	var new_piece: Piece = piece_scene.instance()
 	add_child(new_piece)
 	new_piece.position = pos
 	new_piece.setup(self, tile, type, level)
 	tiles[tile.x][tile.y] = new_piece
-	check_match_at(tile.x, tile.y)
+	if check:
+		check_match_at(tile.x, tile.y)
 
 func play_piece_at_tile(tile: Vector2):
 	build_piece_at_tile(tile, next)

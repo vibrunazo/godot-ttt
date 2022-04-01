@@ -8,9 +8,11 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var grid_data = load_game()
+	$Control/grid.start(grid_data)
+	# to update next
 	_on_grid_played_turn($Control/grid)
-	load_game()
-	save_game()
+#	save_game()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,17 +23,21 @@ func load_game():
 	var save_file := File.new()
 	if not save_file.file_exists("user://game.save"):
 		print('no save file')
-		return
+		return null
 	print('found save file')
 	save_file.open("user://game.save", File.READ)
 	print("pos:  %s" % save_file.get_position())
 	print("len:  %s" % save_file.get_len())
 	print("line: %s" % save_file.get_line())
+	var grid_data = save_file.get_line()
+	print("grid: %s" % grid_data)
 	print("pos:  %s" % save_file.get_position())
 	print("len:  %s" % save_file.get_len())
 	save_file.close()
+	return parse_json(grid_data)
 
 func save_game():
+	print("saving game")
 	var save_file := File.new()
 	save_file.open("user://game.save", File.WRITE)
 	
@@ -48,7 +54,7 @@ func get_JSON_from_grid():
 	for row in tiles:
 		for piece in row:
 			if !piece: 
-				result.append(0)
+				result.append([])
 				continue
 			var p = piece.get_json()
 			result.append(p)
