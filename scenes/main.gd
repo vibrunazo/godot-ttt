@@ -1,15 +1,9 @@
 extends CanvasLayer
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var grid_data = load_game()
-	$Control/grid.start(grid_data)
+	var load_data = load_game()
+	$Control/grid.start(load_data)
 	# to update next
 	_on_grid_played_turn($Control/grid)
 #	save_game()
@@ -25,10 +19,14 @@ func load_game():
 		print('no save file')
 		return null
 	save_file.open("user://game.save", File.READ)
-	var version = save_file.get_line()
-	var grid_data = save_file.get_line()
+	var load_data = {}
+	load_data.version = save_file.get_line()
+	load_data.grid = parse_json(save_file.get_line())
+	load_data.score = int(save_file.get_line())
 	save_file.close()
-	return parse_json(grid_data)
+	print('loaddata:')
+	print(load_data)
+	return load_data
 
 func save_game():
 	var save_file := File.new()
@@ -37,6 +35,7 @@ func save_game():
 	var json = get_JSON_from_grid()
 	save_file.store_line('1')
 	save_file.store_line(json)
+	save_file.store_line(str($Control/grid.score))
 	
 	save_file.close()
 
@@ -44,6 +43,9 @@ func reset_game():
 	var save_file := File.new()
 	save_file.open("user://game.save", File.WRITE)
 	save_file.close()
+	
+func update_score(new_score: int):
+	$Control/Score.text = "Score: %d" % new_score
 
 func get_JSON_from_grid():
 	var tiles = $Control/grid.tiles
@@ -65,6 +67,7 @@ func _on_grid_played_turn(grid_ref: Grid):
 	var next = grid_ref.next
 	var tex = grid_ref.get_tex_from_type(next)
 	$next.set_next(tex)
+	update_score(grid_ref.score)
 	save_game()
 	
 

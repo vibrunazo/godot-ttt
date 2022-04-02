@@ -19,8 +19,8 @@ export var height := 3
 export var offset := 20
 export var tile_size := Vector2(80, 80)
 export var start_pos := Vector2(200, 100)
-
 var tiles = []
+var score := 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,13 +28,14 @@ func _ready():
 
 # called from main.gd with load data
 func start(data = null):
-	if data == null:
+	if data == null || data.grid == null:
 		build_grid()
 	else:
 		build_grid()
-		build_grid_from(data)
+		build_grid_from(data.grid)
+		score = data.score
 		print("data0:")
-		print(data[0])
+		print(data.grid[0])
 	update_next()
 
 
@@ -89,6 +90,7 @@ func build_piece_at_tile(tile: Vector2, type: String, level: int = 0, check = tr
 	tiles[tile.x][tile.y] = new_piece
 	if check:
 		check_match_at(tile.x, tile.y)
+		score += 1 + level * 5
 
 func play_piece_at_tile(tile: Vector2):
 	build_piece_at_tile(tile, next)
