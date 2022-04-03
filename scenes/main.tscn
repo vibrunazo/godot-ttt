@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/next.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/grid.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/main.gd" type="Script" id=3]
 [ext_resource path="res://assets/fonts/Merienda-Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://ttt_theme.tres" type="Theme" id=5]
+[ext_resource path="res://scenes/game_over.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Theme" id=1]
 
@@ -64,5 +65,15 @@ theme = SubResource( 1 )
 custom_fonts/font = SubResource( 2 )
 text = "Restart"
 
+[node name="game_over" parent="." instance=ExtResource( 6 )]
+visible = false
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -300.0
+margin_right = 300.0
+margin_bottom = 300.0
+
+[connection signal="game_over" from="Control/grid" to="." method="_on_grid_game_over"]
 [connection signal="played_turn" from="Control/grid" to="." method="_on_grid_played_turn"]
 [connection signal="pressed" from="RestartButton" to="." method="_on_RestartButton_pressed"]

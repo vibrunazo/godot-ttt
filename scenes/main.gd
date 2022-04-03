@@ -75,3 +75,8 @@ func _on_grid_played_turn(grid_ref: Grid):
 func _on_RestartButton_pressed():
 	reset_game()
 	get_tree().reload_current_scene()
+
+
+func _on_grid_game_over(grid_ref):
+	$game_over.visible = true
+	pass # Replace with function body.

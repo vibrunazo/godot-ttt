@@ -3,6 +3,7 @@ extends Node2D
 class_name Grid
 
 signal played_turn(grid_ref)
+signal game_over(grid_ref)
 
 var state := 'play'
 var turn := 0
@@ -101,7 +102,7 @@ func play_piece_at_tile(tile: Vector2):
 	update_next()
 		
 func game_over():
-	print('le game is le over')
+	emit_signal("game_over", self)
 
 func update_next():
 	var keys := tex_dic.keys()
