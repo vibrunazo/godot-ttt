@@ -18,5 +18,4 @@ func _ready():
 #	pass
 
 func set_next(tex):
-	print('setting texture on next: %s' % tex)
 	$Tex.texture = tex

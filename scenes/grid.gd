@@ -95,7 +95,13 @@ func build_piece_at_tile(tile: Vector2, type: String, level: int = 0, check = tr
 func play_piece_at_tile(tile: Vector2):
 	build_piece_at_tile(tile, next)
 	turn += 1
+	if num_free_tiles() == 0:
+		game_over()
+		return
 	update_next()
+		
+func game_over():
+	print('le game is le over')
 
 func update_next():
 	var keys := tex_dic.keys()
@@ -128,6 +134,13 @@ func find_free_neighbors(from):
 		if (is_inside_grid(x2, y2) && tiles[x2][y2] == null):
 			found_tiles.append([x2, y2])
 	return found_tiles
+
+func num_free_tiles():
+	var total := 0
+	for x in width:
+		for y in height:
+			if tiles[x][y] == null: total += 1
+	return total
 	
 
 func check_win():

@@ -24,8 +24,8 @@ func load_game():
 	load_data.grid = parse_json(save_file.get_line())
 	load_data.score = int(save_file.get_line())
 	save_file.close()
-	print('loaddata:')
-	print(load_data)
+#	print('loaddata:')
+#	print(load_data)
 	return load_data
 
 func save_game():
@@ -59,7 +59,7 @@ func get_JSON_from_grid():
 			result.append(p)
 	
 	var json = to_json(result)
-	print(json)
+#	print(json)
 	return json
 
 
@@ -73,6 +73,5 @@ func _on_grid_played_turn(grid_ref: Grid):
 
 
 func _on_RestartButton_pressed():
-	print('restart')
 	reset_game()
 	get_tree().reload_current_scene()
