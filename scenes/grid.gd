@@ -31,13 +31,12 @@ func _ready():
 func start(data = null):
 	if data == null || data.grid == null:
 		build_grid()
+		update_next()
 	else:
 		build_grid()
 		build_grid_from(data.grid)
 		score = data.score
-		print("data0:")
-		print(data.grid[0])
-	update_next()
+		next = data.next
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

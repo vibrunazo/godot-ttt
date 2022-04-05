@@ -24,6 +24,7 @@ func load_game():
 	load_data.version = save_file.get_line()
 	load_data.grid = parse_json(save_file.get_line())
 	load_data.score = int(save_file.get_line())
+	load_data.next = save_file.get_line()
 	save_file.close()
 #	print('loaddata:')
 #	print(load_data)
@@ -37,6 +38,7 @@ func save_game():
 	save_file.store_line('1')
 	save_file.store_line(json)
 	save_file.store_line(str($Control/grid.score))
+	save_file.store_line($Control/grid.next)
 	
 	save_file.close()
 
