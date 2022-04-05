@@ -2,6 +2,7 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	var load_data = load_game()
 	$Control/grid.start(load_data)
 	# to update next
