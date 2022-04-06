@@ -22,6 +22,11 @@ export var tile_size := Vector2(80, 80)
 export var start_pos := Vector2(200, 100)
 var tiles = []
 var score := 0
+var count := {
+	"life": {0: 0, 1: 0},
+	"rock": {0: 0, 1: 0},
+	"fire": {0: 0, 1: 0}
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -88,6 +93,8 @@ func build_piece_at_tile(tile: Vector2, type: String, level: int = 0, check = tr
 	new_piece.position = pos
 	new_piece.setup(self, tile, type, level)
 	tiles[tile.x][tile.y] = new_piece
+	add_count(type, level)
+	print(count)
 	if check:
 		check_match_at(tile.x, tile.y)
 		score += 1 + level * 5
@@ -99,6 +106,13 @@ func play_piece_at_tile(tile: Vector2):
 		game_over()
 		return
 	update_next()
+
+func add_count(type: String, level: int, add: int = 1):
+	if !(type in count):
+		count[type] = {0: 0, 1: 0}
+	if !(level in count[type]):
+		count[type][level] = 0
+	count[type][level] = count[type][level] + add
 		
 func game_over():
 	emit_signal("game_over", self)
