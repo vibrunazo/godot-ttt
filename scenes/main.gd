@@ -47,6 +47,11 @@ func reset_game():
 	save_file.open("user://game.save", File.WRITE)
 	save_file.close()
 	
+func restart_game():
+	reset_game()
+	get_tree().reload_current_scene()
+	
+	
 func update_score(new_score: int):
 	$Control/Score.text = "Score: %d" % new_score
 
@@ -73,13 +78,15 @@ func _on_grid_played_turn(grid_ref: Grid):
 	update_score(grid_ref.score)
 	save_game()
 	
-
+func game_over():
+	$game_over.popup_centered()
 
 func _on_RestartButton_pressed():
-	reset_game()
-	get_tree().reload_current_scene()
-
+	game_over()
+#	reset_game()
 
 func _on_grid_game_over(grid_ref):
-	$game_over.visible = true
-	pass # Replace with function body.
+	game_over()
+
+func _on_game_over_confirmed():
+	restart_game()

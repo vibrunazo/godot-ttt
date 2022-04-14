@@ -66,14 +66,13 @@ custom_fonts/font = SubResource( 2 )
 text = "Restart"
 
 [node name="game_over" parent="." instance=ExtResource( 6 )]
-visible = false
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = -300.0
-margin_top = -300.0
-margin_right = 300.0
-margin_bottom = 300.0
+margin_top = -600.0
+margin_right = 245.0
+margin_bottom = -429.0
 
 [connection signal="game_over" from="Control/grid" to="." method="_on_grid_game_over"]
 [connection signal="played_turn" from="Control/grid" to="." method="_on_grid_played_turn"]
 [connection signal="pressed" from="RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="confirmed" from="game_over" to="." method="_on_game_over_confirmed"]
