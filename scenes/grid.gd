@@ -10,11 +10,12 @@ var turn := 0
 var next := 'rock'
 var piece_scene := preload("res://scenes/piece.tscn")
 var tile_scene := preload("res://scenes/tile.tscn")
-var tex_dic := {
-	'life': [preload("res://assets/seed03.png"), preload("res://assets/leaf02.png"), preload("res://assets/tree.png")],
-	'rock': [preload("res://assets/rock01.png"), preload("res://assets/steel02.png")],
-	'fire': [preload("res://assets/fire.png"), preload("res://assets/coal.png")]
-}
+#var tex_dic := {
+#	'life': [preload("res://assets/seed03.png"), preload("res://assets/leaf02.png"), preload("res://assets/tree.png")],
+#	'rock': [preload("res://assets/rock01.png"), preload("res://assets/steel02.png")],
+#	'fire': [preload("res://assets/fire.png"), preload("res://assets/coal.png")]
+#}
+var tex_dic = {}
 export var width := 3
 export var height := 3	
 export var offset := 20
@@ -30,7 +31,7 @@ var count := {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	tex_dic = $"/root/Global".tex_dic
 
 # called from main.gd with load data
 func start(data = null):
@@ -123,8 +124,8 @@ func game_over():
 	emit_signal("game_over", self)
 
 func update_next():
-	var keys := tex_dic.keys()
-	var size := keys.size()
+	var keys = tex_dic.keys()
+	var size = keys.size()
 #	var next_index := turn % size
 	var rng := randi() % 100
 	var next_index := 2

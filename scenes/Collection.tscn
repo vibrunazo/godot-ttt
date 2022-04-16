@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/CollectionItem.tscn" type="PackedScene" id=1]
+
+[node name="Collection" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBox" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="CollectionItem" parent="VBox" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 100.0
+margin_bottom = 100.0
+
+[node name="CollectionItem2" parent="VBox" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 104.0
+margin_right = 100.0
+margin_bottom = 204.0
+
+[node name="CollectionItem3" parent="VBox" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 208.0
+margin_right = 100.0
+margin_bottom = 308.0
+
+[node name="CollectionItem4" parent="VBox" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 312.0
+margin_right = 100.0
+margin_bottom = 412.0

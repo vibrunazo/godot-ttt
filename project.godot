@@ -30,6 +30,10 @@ config/name="ttt"
 run/main_scene="res://scenes/main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://scenes/global.gd"
+
 [display]
 
 window/size/width=800

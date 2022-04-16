@@ -3,7 +3,6 @@
 [ext_resource path="res://ttt_theme.tres" type="Theme" id=1]
 
 [node name="GameOver" type="AcceptDialog"]
-visible = true
 margin_right = 83.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 300, 200 )
