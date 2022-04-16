@@ -43,6 +43,11 @@ func start(data = null):
 		score = data.score
 		next = data.next
 
+func pause_game():
+	state = 'pause'
+
+func unpause_game():
+	state = 'play'
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

@@ -76,3 +76,4 @@ margin_bottom = -429.0
 [connection signal="played_turn" from="Control/grid" to="." method="_on_grid_played_turn"]
 [connection signal="pressed" from="RestartButton" to="." method="_on_RestartButton_pressed"]
 [connection signal="confirmed" from="game_over" to="." method="_on_game_over_confirmed"]
+[connection signal="popup_hide" from="game_over" to="." method="_on_game_over_popup_hide"]

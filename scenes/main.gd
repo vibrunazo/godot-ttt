@@ -80,6 +80,7 @@ func _on_grid_played_turn(grid_ref: Grid):
 	
 func game_over():
 	$game_over.popup_centered()
+	$Control/grid.pause_game()
 
 func _on_RestartButton_pressed():
 	game_over()
@@ -90,3 +91,7 @@ func _on_grid_game_over(grid_ref):
 
 func _on_game_over_confirmed():
 	restart_game()
+
+
+func _on_game_over_popup_hide():
+	$Control/grid.unpause_game()
