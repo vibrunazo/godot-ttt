@@ -15,6 +15,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 100.0
 margin_bottom = 100.0
+ammount = 12
 
 [node name="CollectionItem2" parent="VBox" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -22,6 +23,8 @@ anchor_bottom = 0.0
 margin_top = 104.0
 margin_right = 100.0
 margin_bottom = 204.0
+level = 1
+ammount = 5
 
 [node name="CollectionItem3" parent="VBox" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -29,6 +32,7 @@ anchor_bottom = 0.0
 margin_top = 208.0
 margin_right = 100.0
 margin_bottom = 308.0
+level = 2
 
 [node name="CollectionItem4" parent="VBox" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -36,3 +40,5 @@ anchor_bottom = 0.0
 margin_top = 312.0
 margin_right = 100.0
 margin_bottom = 412.0
+type = "rock"
+ammount = 4
