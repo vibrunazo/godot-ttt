@@ -13,50 +13,50 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="VBoxLife" type="VBoxContainer" parent="HBox"]
-margin_right = 200.0
+margin_right = 140.0
 margin_bottom = 412.0
 
 [node name="CollectionItem" parent="HBox/VBoxLife" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_right = 200.0
+margin_right = 140.0
 margin_bottom = 100.0
 
 [node name="CollectionItem2" parent="HBox/VBoxLife" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 104.0
-margin_right = 200.0
+margin_right = 140.0
 margin_bottom = 204.0
 level = 1
 
 [node name="CollectionItem3" parent="HBox/VBoxLife" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 208.0
-margin_right = 200.0
+margin_right = 140.0
 margin_bottom = 308.0
 level = 2
 
 [node name="CollectionItem4" parent="HBox/VBoxLife" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 312.0
-margin_right = 200.0
+margin_right = 140.0
 margin_bottom = 412.0
 level = 3
 
 [node name="VBoxRock" type="VBoxContainer" parent="HBox"]
-margin_left = 204.0
-margin_right = 404.0
+margin_left = 144.0
+margin_right = 284.0
 margin_bottom = 412.0
 
 [node name="CollectionItem" parent="HBox/VBoxRock" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_right = 200.0
+margin_right = 140.0
 margin_bottom = 100.0
 type = "rock"
 
 [node name="CollectionItem2" parent="HBox/VBoxRock" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 104.0
-margin_right = 200.0
+margin_right = 140.0
 margin_bottom = 204.0
 type = "rock"
 level = 1
@@ -64,7 +64,7 @@ level = 1
 [node name="CollectionItem3" parent="HBox/VBoxRock" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 208.0
-margin_right = 200.0
+margin_right = 140.0
 margin_bottom = 308.0
 type = "rock"
 level = 2
@@ -72,7 +72,7 @@ level = 2
 [node name="CollectionItem4" parent="HBox/VBoxRock" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 312.0
-margin_right = 200.0
+margin_right = 140.0
 margin_bottom = 412.0
 type = "rock"
 level = 3

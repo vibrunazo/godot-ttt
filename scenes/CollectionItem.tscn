@@ -6,22 +6,34 @@
 
 [node name="CollectionItem" type="Control"]
 anchor_right = 1.0
-rect_min_size = Vector2( 200, 100 )
+rect_min_size = Vector2( 140, 100 )
 theme = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 148.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 120, 100 )
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
-margin_right = 128.0
-margin_bottom = 128.0
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
 texture = ExtResource( 1 )
+expand = true
+stretch_mode = 4
 
-[node name="Label" type="Label" parent="HBoxContainer"]
-margin_left = 132.0
-margin_top = 41.0
-margin_right = 166.0
-margin_bottom = 86.0
-text = "x2	"
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+margin_left = 104.0
+margin_right = 148.0
+margin_bottom = 100.0
+custom_constants/margin_left = -16
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer"]
+margin_left = -16.0
+margin_top = 27.0
+margin_right = 44.0
+margin_bottom = 72.0
+text = "x 21"
+align = 1
+valign = 1
