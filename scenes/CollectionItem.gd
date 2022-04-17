@@ -2,7 +2,7 @@ extends Control
 
 export var type := 'life'
 export var level := 0
-export var ammount := 1
+export var ammount := 0
 
 
 func _ready():

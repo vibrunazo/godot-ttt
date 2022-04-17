@@ -79,6 +79,8 @@ func _on_grid_played_turn(grid_ref: Grid):
 	save_game()
 	
 func game_over():
+	$game_over/Collection.count = $Control/grid.count
+	$game_over/Collection.update()
 	$game_over.popup_centered()
 	$Control/grid.pause_game()
 
