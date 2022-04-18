@@ -25,6 +25,7 @@ func load_game():
 	load_data.grid = parse_json(save_file.get_line())
 	load_data.score = int(save_file.get_line())
 	load_data.next = save_file.get_line()
+	load_data.collection = parse_json(save_file.get_line())
 	save_file.close()
 #	print('loaddata:')
 #	print(load_data)
@@ -34,11 +35,13 @@ func save_game():
 	var save_file := File.new()
 	save_file.open("user://game.save", File.WRITE)
 	
-	var json = get_JSON_from_grid()
+	var grid_json = get_JSON_from_grid()
+	var collection_json = get_JSON_from_collection()
 	save_file.store_line('1')
-	save_file.store_line(json)
+	save_file.store_line(grid_json)
 	save_file.store_line(str($Control/grid.score))
 	save_file.store_line($Control/grid.next)
+	save_file.store_line(collection_json)
 	
 	save_file.close()
 
@@ -68,6 +71,12 @@ func get_JSON_from_grid():
 	
 	var json = to_json(result)
 #	print(json)
+	return json
+
+func get_JSON_from_collection():
+	var grid: Grid = $Control/grid
+	var collection: Dictionary = grid.count
+	var json = to_json(collection)
 	return json
 
 

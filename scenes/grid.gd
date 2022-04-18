@@ -19,9 +19,9 @@ export var start_pos := Vector2(200, 100)
 var tiles = []
 var score := 0
 var count := {
-	"life": {0: 0, 1: 0},
-	"rock": {0: 0, 1: 0},
-	"fire": {0: 0, 1: 0}
+	"life": {"0": 0, "1": 0},
+	"rock": {"0": 0, "1": 0},
+	"fire": {"0": 0, "1": 0}
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -38,6 +38,7 @@ func start(data = null):
 		build_grid_from(data.grid)
 		score = data.score
 		next = data.next
+		count = data.collection
 
 func pause_game():
 	state = 'pause'
@@ -108,10 +109,11 @@ func play_piece_at_tile(tile: Vector2):
 		return
 	update_next()
 
-func add_count(type: String, level: int, add: int = 1):
+func add_count(type: String, lvl: int, add: int = 1):
+	var level = str(lvl)
 	if !(type in count):
 		count[type] = {0: 0, 1: 0}
-	if !(level in count[type]):
+	if !((level) in count[type]):
 		count[type][level] = 0
 	count[type][level] = count[type][level] + add
 		

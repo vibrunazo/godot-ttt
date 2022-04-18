@@ -4,7 +4,6 @@
 [ext_resource path="res://scenes/Collection.tscn" type="PackedScene" id=2]
 
 [node name="GameOver" type="AcceptDialog"]
-visible = true
 margin_right = 451.0
 margin_bottom = 502.0
 rect_min_size = Vector2( 320, 500 )
