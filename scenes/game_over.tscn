@@ -4,9 +4,10 @@
 [ext_resource path="res://scenes/Collection.tscn" type="PackedScene" id=2]
 
 [node name="GameOver" type="AcceptDialog"]
-margin_right = 672.0
+visible = true
+margin_right = 451.0
 margin_bottom = 502.0
-rect_min_size = Vector2( 440, 500 )
+rect_min_size = Vector2( 320, 500 )
 theme = ExtResource( 1 )
 window_title = "Game Over!"
 resizable = true
@@ -16,9 +17,9 @@ dialog_autowrap = true
 visible = false
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -328.0
+margin_left = -217.5
 margin_top = 8.0
-margin_right = 328.0
+margin_right = 217.5
 margin_bottom = 435.0
 theme = ExtResource( 1 )
 text = "Restart Game?"
