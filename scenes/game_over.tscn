@@ -12,20 +12,6 @@ window_title = "Game Over!"
 resizable = true
 dialog_autowrap = true
 
-[node name="InnerLabel" type="Label" parent="."]
-visible = false
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -217.5
-margin_top = 8.0
-margin_right = 217.5
-margin_bottom = 435.0
-theme = ExtResource( 1 )
-text = "Restart Game?"
-align = 1
-valign = 1
-autowrap = true
-
 [node name="Collection" parent="." instance=ExtResource( 2 )]
 margin_left = 8.0
 margin_top = 8.0
