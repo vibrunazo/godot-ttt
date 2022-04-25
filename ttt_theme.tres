@@ -6,7 +6,7 @@
 [ext_resource path="res://styles/theme_font.tres" type="DynamicFont" id=4]
 
 [sub_resource type="DynamicFont" id=3]
-size = 30
+size = 60
 outline_size = 2
 outline_color = Color( 0.6, 0.6, 0.12, 1 )
 font_data = ExtResource( 1 )
